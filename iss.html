@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmos — ISS Live Tracker</title>
+  <meta name="description" content="Track the International Space Station live on a map." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/iss.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛸</text></svg>" />
+</head>
+<body>
 
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="Cosmos Home">
+      <div class="nav-logo-icon" aria-hidden="true"></div>
+      COSMOS
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html"><span class="nav-icon" aria-hidden="true">🏠</span>Home</a></li>
+      <li><a href="apod.html"><span class="nav-icon" aria-hidden="true">🌠</span>APOD</a></li>
+      <li><a href="mars.html"><span class="nav-icon" aria-hidden="true">🔴</span>Mars</a></li>
+      <li><a href="asteroids.html"><span class="nav-icon" aria-hidden="true">☄️</span>Asteroids</a></li>
+      <li><a href="iss.html" class="active"><span class="nav-icon" aria-hidden="true">🛸</span>ISS</a></li>
+      <li><a href="news.html"><span class="nav-icon" aria-hidden="true">📰</span>News</a></li>
+      <li><a href="wishlist.html"><span class="nav-icon" aria-hidden="true">🔖</span>Wishlist</a></li>
+    </ul>
+    <button id="nav-hamburger" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main class="page-wrapper">
+    <div class="container">
+
+      <div class="section-header">
+        <p class="section-eyebrow">✦ Live · International Space Station</p>
+        <h1 class="section-title">ISS Telemetry Tracker</h1>
+        <p class="section-subtitle">
+          Follow the International Space Station orbiting at 400 km above Earth. Data refreshes every 5 seconds.
+        </p>
+      </div>
+
+      <div class="iss-dashboard">
+        <div class="iss-coords-card glass-card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+             <p class="iss-label">📡 Current Coordinates</p>
+             <div class="iss-status">
+              <div class="iss-live-dot"></div>
+              Live
+            </div>
+          </div>
+          
+          <div class="iss-coord-grid">
+            <div class="iss-coord-item">
+              <div class="iss-coord-label">Latitude</div>
+              <div class="iss-coord-value" id="iss-lat">—</div>
+            </div>
+            <div class="iss-coord-item">
+              <div class="iss-coord-label">Longitude</div>
+              <div class="iss-coord-value" id="iss-lon">—</div>
+            </div>
+            <div class="iss-coord-item">
+              <div class="iss-coord-label">Orbital Speed</div>
+              <div class="iss-coord-value" style="color:var(--text-primary)">27,600 <span style="font-size: 0.8rem; font-weight: normal;">km/h</span></div>
+            </div>
+            <div class="iss-coord-item">
+              <div class="iss-coord-label">Altitude</div>
+              <div class="iss-coord-value" style="color:var(--text-primary)">~408 <span style="font-size: 0.8rem; font-weight: normal;">km</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="iss-map-card">
+          <div id="iss-map" aria-label="ISS live position map" role="img"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/iss.js"></script>
+</body>
+</html>
