@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmos — Astronomy Picture of the Day</title>
+  <meta name="description" content="Today's NASA Astronomy Picture of the Day" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/apod.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌠</text></svg>" />
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="Cosmos Home">
+      <div class="nav-logo-icon" aria-hidden="true"></div>
+      COSMOS
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html"><span class="nav-icon" aria-hidden="true">🏠</span>Home</a></li>
+      <li><a href="apod.html" class="active"><span class="nav-icon" aria-hidden="true">🌠</span>APOD</a></li>
+      <li><a href="mars.html"><span class="nav-icon" aria-hidden="true">🔴</span>Mars</a></li>
+      <li><a href="asteroids.html"><span class="nav-icon" aria-hidden="true">☄️</span>Asteroids</a></li>
+      <li><a href="iss.html"><span class="nav-icon" aria-hidden="true">🛸</span>ISS</a></li>
+      <li><a href="news.html"><span class="nav-icon" aria-hidden="true">📰</span>News</a></li>
+      <li><a href="wishlist.html"><span class="nav-icon" aria-hidden="true">🔖</span>Wishlist</a></li>
+    </ul>
+    <button id="nav-hamburger" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main class="page-wrapper">
+    <div class="container">
+      <section class="apod-hero">
+        <div class="section-header">
+          <p class="section-eyebrow">📡 NASA · Daily Wonders</p>
+          <h1 class="section-title">Astronomy Picture<br>of the Day</h1>
+          <p class="section-subtitle">
+            Each day NASA features a different image or photograph of our fascinating universe,
+            with a brief explanation written by a professional astronomer.
+          </p>
+        </div>
+
+        <div id="apod-wrapper">
+          </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/apod.js"></script>
+</body>
+</html>
