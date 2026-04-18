@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmos — Mars Rover Gallery</title>
+  <meta name="description" content="Browse photos taken by NASA Mars rovers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/mars.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>" />
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="Cosmos Home">
+      <div class="nav-logo-icon" aria-hidden="true"></div>
+      COSMOS
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html"><span class="nav-icon" aria-hidden="true">🏠</span>Home</a></li>
+      <li><a href="apod.html"><span class="nav-icon" aria-hidden="true">🌠</span>APOD</a></li>
+      <li><a href="mars.html" class="active"><span class="nav-icon" aria-hidden="true">🔴</span>Mars</a></li>
+      <li><a href="asteroids.html"><span class="nav-icon" aria-hidden="true">☄️</span>Asteroids</a></li>
+      <li><a href="iss.html"><span class="nav-icon" aria-hidden="true">🛸</span>ISS</a></li>
+      <li><a href="news.html"><span class="nav-icon" aria-hidden="true">📰</span>News</a></li>
+      <li><a href="wishlist.html"><span class="nav-icon" aria-hidden="true">🔖</span>Wishlist</a></li>
+    </ul>
+    <button id="nav-hamburger" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main class="page-wrapper">
+    <div class="container">
+
+      <div class="section-header">
+        <p class="section-eyebrow">✦ NASA · Mars Exploration</p>
+        <h1 class="section-title">Mars Rover<br>Photo Gallery</h1>
+        <p class="section-subtitle">
+          Explore raw imagery beamed back across 140 million miles of space from
+          NASA's fleet of Mars surface explorers.
+        </p>
+      </div>
+
+      <div class="mars-controls glass-card">
+        <div class="mars-controls-grid">
+          <div class="form-group">
+            <label class="form-label" for="rover-select">🚗 Select Rover</label>
+            <select id="rover-select" class="form-control">
+              <option value="curiosity">Curiosity</option>
+              <option value="perseverance">Perseverance</option>
+              <option value="opportunity">Opportunity</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sol-input">☀️ Martian Sol</label>
+            <input id="sol-input" type="number" class="form-control" value="1000" min="0" max="4000" />
+          </div>
+          <div class="form-group" style="justify-content:flex-end">
+            <button id="fetch-mars-btn" class="btn btn-primary" style="width:100%">
+              🔍 Fetch Photos
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="mars-count" class="mars-count-badge" style="display:none"></div>
+      <div id="mars-grid" class="mars-grid"></div>
+
+    </div>
+  </main>
+
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Mars rover photo fullscreen" />
+      <p id="lightbox-caption" class="lightbox-caption"></p>
+    </div>
+    <button id="lightbox-close" class="lightbox-close" aria-label="Close lightbox">✕</button>
+  </div>
+
+  <script src="js/mars.js"></script>
+</body>
+</html>
