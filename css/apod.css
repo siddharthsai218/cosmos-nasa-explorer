@@ -1,0 +1,132 @@
+/* ============================================
+   APOD Specific Styles
+   ============================================ */
+
+.apod-hero {
+  padding: 24px 0 60px;
+}
+
+.apod-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.apod-media-wrap {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: rgba(10,18,40,0.4);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-card);
+  animation: scaleIn 0.8s ease both;
+}
+
+.apod-media-wrap img {
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.apod-media-wrap:hover img { transform: scale(1.03); }
+
+.apod-media-wrap iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  display: block;
+}
+
+.apod-date-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(3,6,16,0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.08em;
+}
+
+.apod-info {
+  animation: fadeInUp 0.8s 0.15s ease both;
+}
+
+.apod-info .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.apod-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #fff, var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.apod-description {
+  font-size: 0.97rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-glow) transparent;
+}
+
+.apod-description::-webkit-scrollbar { width: 4px; }
+.apod-description::-webkit-scrollbar-track { background: transparent; }
+.apod-description::-webkit-scrollbar-thumb { background: var(--border-glow); border-radius: 2px; }
+
+.apod-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.apod-meta-item {
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(10,18,40,0.45);
+  border: 1px solid var(--border-glass);
+}
+
+.apod-meta-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.apod-meta-value {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@media (max-width: 1024px) {
+  .apod-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .apod-meta-grid { grid-template-columns: 1fr; }
+}
