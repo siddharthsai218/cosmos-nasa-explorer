@@ -1,0 +1,149 @@
+/* ── Apod.css ── */
+
+.page-wrap {
+  padding-top: 48px; /* offset for fixed navbar */
+  min-height: 100vh;
+}
+
+/* Side-by-side layout: image | data */
+.apod-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border2);
+  border: 1px solid var(--border2);
+  min-height: 500px;
+}
+
+/* Left image panel */
+.apod-img-panel {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  min-height: 500px;
+}
+
+.apod-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(30%) contrast(1.1);
+  transition: filter 0.5s;
+}
+.apod-img-panel:hover .apod-img {
+  filter: grayscale(0%) contrast(1.05);
+}
+
+/* Moving horizontal scan line */
+.apod-scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(125, 211, 252, 0.4), transparent);
+  animation: scan 4s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Corner info badges */
+.apod-badge {
+  position: absolute;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--ice);
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid var(--border2);
+  padding: 4px 10px;
+  z-index: 3;
+}
+.top-left    { top: 12px; left: 12px; }
+.bottom-right{ bottom: 12px; right: 12px; color: var(--white3); }
+
+/* Video fallback */
+.apod-video-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+}
+.apod-vid-label {
+  font-size: 10px;
+  color: var(--white3);
+  letter-spacing: 0.2em;
+}
+
+/* Right data panel */
+.apod-data {
+  background: var(--surface);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.apod-data-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.apod-date-tag {
+  font-size: 10px;
+  color: var(--ice);
+  letter-spacing: 0.15em;
+  background: var(--ice-dim);
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  padding: 3px 10px;
+}
+.apod-type-tag {
+  font-size: 9px;
+  color: var(--white3);
+  letter-spacing: 0.1em;
+}
+
+.apod-photo-title {
+  font-family: var(--display);
+  font-size: 26px;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.apod-explanation {
+  font-size: 12px;
+  color: var(--white2);
+  line-height: 1.9;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 320px;
+}
+.apod-explanation::-webkit-scrollbar { width: 2px; }
+.apod-explanation::-webkit-scrollbar-thumb { background: var(--border2); }
+
+.apod-copyright {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 9px;
+  color: var(--white3);
+  letter-spacing: 0.15em;
+}
+
+.apod-error {
+  padding: 32px;
+  font-size: 11px;
+  color: var(--red);
+  letter-spacing: 0.15em;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+@media (max-width: 900px) {
+  .apod-wrap { grid-template-columns: 1fr; }
+  .apod-img-panel { min-height: 280px; }
+}
