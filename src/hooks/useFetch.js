@@ -1,48 +1,65 @@
-// ============================================================
-// hooks/useFetch.js — Generic reusable data-fetching hook
-//
-// Usage:
-//   const { data, loading, error } = useFetch(url)
-//
-// Returns:
-//   data    — the parsed JSON response (null until loaded)
-//   loading — true while request is in flight
-//   error   — error message string if request failed
-// ============================================================
-
 import { useState, useEffect } from 'react';
 
 function useFetch(url) {
-  const [data,    setData]    = useState(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error,   setError]   = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Don't fetch if no URL given
     if (!url) return;
 
-    let cancelled = false; // prevents setting state after unmount
+    let cancelled = false;
 
     const fetchData = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const res  = await fetch(url);
+        const res = await fetch(url);
+
+        // Check if request failed
+        if (!res.ok) {
+          throw new Error(
+            `HTTP ${res.status} ${res.statusText}`
+          );
+        }
+
+        // Check response type
+        const contentType =
+          res.headers.get('content-type');
+
+        if (
+          !contentType ||
+          !contentType.includes('application/json')
+        ) {
+          throw new Error(
+            'API did not return valid JSON'
+          );
+        }
+
         const json = await res.json();
-        if (!cancelled) setData(json);
+
+        if (!cancelled) {
+          setData(json);
+        }
+
       } catch (err) {
-        if (!cancelled) setError(err.message);
+        if (!cancelled) {
+          setError(err.message);
+        }
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
     fetchData();
 
-    // Cleanup: if component unmounts before fetch completes, ignore result
-    return () => { cancelled = true; };
-  }, [url]); // re-fetch whenever URL changes
+    return () => {
+      cancelled = true;
+    };
+  }, [url]);
 
   return { data, loading, error };
 }
