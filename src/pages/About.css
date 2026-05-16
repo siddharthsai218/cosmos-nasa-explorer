@@ -1,0 +1,305 @@
+/* ── About.css ── */
+
+.about-page-bg {
+  position: relative;
+  min-height: 100vh;
+}
+
+.about-stars-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, var(--ice), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 50px 160px, var(--ice2), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, var(--ice), rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  z-index: 0;
+  animation: starsTwinkle 4s infinite alternate ease-in-out;
+}
+
+@keyframes starsTwinkle {
+  0% { opacity: 0.1; transform: scale(1); }
+  100% { opacity: 0.6; transform: scale(1.05); }
+}
+
+/* ── MAIN PAGE: 3D COMMAND ROSTER ── */
+.roster-array-wrapper {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.roster-array {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  perspective: 1200px; 
+}
+
+.roster-card {
+  width: 220px;
+  height: 380px;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--border2);
+  border-top: 2px solid var(--ice3);
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: crosshair;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden; /* Keeps the image trapped inside the card */
+}
+
+/* New Image Background layer inside the card */
+.roster-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  z-index: 1; /* Sits behind the text */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  /* Boosting brightness significantly */
+  filter: brightness(1.4) contrast(1.1); 
+}
+
+/* 3D curvature angles */
+.roster-card:nth-child(1) { transform: rotateY(30deg) translateZ(-80px); }
+.roster-card:nth-child(2) { transform: rotateY(10deg) translateZ(-20px); }
+.roster-card:nth-child(3) { transform: rotateY(-10deg) translateZ(-20px); }
+.roster-card:nth-child(4) { transform: rotateY(-30deg) translateZ(-80px); }
+
+.roster-card:hover {
+  transform: rotateY(0deg) translateZ(40px) scale(1.05);
+  border-color: var(--ice2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px var(--ice-dim);
+  z-index: 10;
+}
+
+/* Fade and zoom image on hover */
+.roster-card:hover .roster-card-bg {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.roster-card-inner {
+  text-align: center;
+  position: relative;
+  z-index: 2; /* Ensures text stays above the image */
+}
+
+/* Adding text shadows so white text is readable over bright images */
+.roster-card-inner h2 {
+  font-family: var(--display);
+  font-size: 28px;
+  color: var(--ice);
+  letter-spacing: 0.1em;
+  margin-top: 8px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.t-label {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.card-scanline {
+  position: absolute;
+  top: -100%; left: 0; right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, rgba(56, 189, 248, 0.15), transparent);
+  transition: top 0s;
+  z-index: 2;
+}
+.roster-card:hover .card-scanline {
+  top: 100%;
+  transition: top 1.5s linear infinite;
+}
+
+.roster-accent {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  z-index: 3;
+}
+.bg-planet-ice   { background: var(--ice2); box-shadow: 0 -5px 15px var(--ice2); }
+.bg-planet-amber { background: var(--amber); box-shadow: 0 -5px 15px var(--amber); }
+.bg-planet-green { background: var(--green); box-shadow: 0 -5px 15px var(--green); }
+.bg-planet-red   { background: var(--red); box-shadow: 0 -5px 15px var(--red); }
+
+/* Base glow under the array */
+.roster-base-light {
+  position: absolute;
+  bottom: -40px;
+  width: 80%;
+  height: 20px;
+  background: radial-gradient(ellipse at center, var(--ice-dim) 0%, transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* ── INDIVIDUAL PAGE: ORBITAL VIEW ── */
+.individual-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  min-height: 60vh;
+}
+
+.hologram-nameplate {
+  margin-bottom: 64px;
+  padding: 10px 40px;
+  border: 1px solid var(--ice2);
+  background: var(--ice-dim);
+  box-shadow: 0 0 15px var(--ice-dim2);
+}
+
+.hologram-text {
+  font-family: var(--display);
+  font-size: 32px;
+  color: var(--ice2);
+  letter-spacing: 0.2em;
+  animation: hologramFlicker 3s infinite;
+}
+
+@keyframes hologramFlicker {
+  0%, 100% { opacity: 1; text-shadow: 0 0 8px var(--ice2); }
+  33% { opacity: 0.8; text-shadow: none; }
+  34% { opacity: 1; text-shadow: 0 0 8px var(--ice2); }
+  66% { opacity: 1; }
+  67% { opacity: 0.4; }
+  68% { opacity: 1; }
+}
+
+.planetary-hub {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateZ(-15deg);
+}
+
+/* Container for the new Three.js canvas */
+.three-planet-mount {
+  width: 240px;
+  height: 240px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(0,0,0,0.8), inset 0 0 20px var(--ice-dim);
+}
+
+.orbital-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 1px solid var(--ice3);
+  transform: translate(-50%, -50%) rotateX(65deg);
+  pointer-events: none;
+}
+.ring-back { border-bottom: none; z-index: 5; opacity: 0.3; }
+.ring-front { border-top: none; z-index: 15; box-shadow: 0 10px 20px var(--ice-dim2); }
+
+.orbit-system {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 500px;
+  height: 500px;
+  transform: translate(-50%, -50%) rotateX(65deg);
+  transform-style: preserve-3d;
+  animation: orbitSpin 20s linear infinite;
+}
+
+@keyframes orbitSpin {
+  from { transform: translate(-50%, -50%) rotateX(65deg) rotateZ(0deg); }
+  to { transform: translate(-50%, -50%) rotateX(65deg) rotateZ(360deg); }
+}
+
+.orbit-node {
+  position: absolute;
+  top: 50%; left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  
+  --angle: calc((360 / var(--total)) * var(--index));
+  
+  transform: 
+    translate(-50%, -50%) 
+    translateX(calc(cos(calc(var(--angle) * 1deg)) * 250px)) 
+    translateY(calc(sin(calc(var(--angle) * 1deg)) * 250px))
+    rotateZ(calc(var(--angle) * -1deg))
+    rotateX(-65deg)
+    rotateZ(15deg);
+  
+  z-index: 20;
+  transition: transform 0.2s;
+  
+}
+
+.orbit-node:hover .orbit-icon {
+  background: var(--ice2);
+  color: var(--black);
+  box-shadow: 0 0 15px var(--ice2);
+}
+
+.orbit-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--ice);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--ice);
+  font-family: var(--display);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.orbit-label {
+  margin-top: 8px;
+  font-size: 10px;
+  color: var(--white);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--black);
+  padding: 2px 6px;
+  border: 1px solid var(--border2);
+}
+
+@media (max-width: 900px) {
+  .roster-array { flex-direction: column; perspective: none; }
+  .roster-card { transform: none !important; width: 100%; height: 120px; }
+  .orbital-ring, .orbit-system { width: 340px; height: 340px; }
+  .orbit-node {
+    transform: 
+      translate(-50%, -50%) 
+      translateX(calc(cos(calc(var(--angle) * 1deg)) * 170px)) 
+      translateY(calc(sin(calc(var(--angle) * 1deg)) * 170px))
+      rotateZ(calc(var(--angle) * -1deg))
+      rotateX(-65deg)
+      rotateZ(15deg);
+  }
+}

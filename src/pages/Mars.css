@@ -1,0 +1,285 @@
+/* ── Mars.css ── */
+
+.mars-page-bg {
+  position: relative;
+  min-height: 100vh;
+}
+
+.mars-stars-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, var(--ice), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, var(--ice3), rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 250px 250px;
+  animation: starsTwinkle 5s infinite alternate ease-in-out;
+  z-index: 0;
+}
+
+.mars-scanline-bg {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(14, 165, 233, 0.03) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── HUD Control Deck (Tabs & Telemetry) ── */
+.hud-control-deck {
+  background: rgba(10, 10, 10, 0.85);
+  border: 1px solid var(--border2);
+  padding: 24px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  position: relative;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.hud-corner {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-color: var(--ice3);
+  border-style: solid;
+  pointer-events: none;
+}
+.hud-corner.top-left { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.hud-corner.top-right { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.hud-corner.bottom-left { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+.hud-corner.bottom-right { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.rover-tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.hud-tab {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  /* Cyberpunk angled corner */
+  clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+  background: var(--surface2);
+  color: var(--white3);
+  border: none;
+  cursor: crosshair;
+  transition: all 0.2s;
+  position: relative;
+}
+.hud-tab::before {
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: transparent;
+}
+.hud-tab:hover { background: var(--border2); color: var(--ice); }
+.hud-tab.active {
+  background: rgba(14, 165, 233, 0.1);
+  color: var(--ice2);
+}
+.hud-tab.active::before { background: var(--ice2); }
+
+.hud-telemetry {
+  display: flex;
+  gap: 32px;
+}
+.tel-block { display: flex; flex-direction: column; gap: 4px; }
+.tel-label { font-size: 9px; color: var(--white3); letter-spacing: 0.2em; }
+.tel-val { font-family: var(--display); font-size: 20px; color: var(--ice); letter-spacing: 0.1em; }
+.txt-green { color: var(--green); text-shadow: 0 0 10px var(--green); }
+.txt-red { color: var(--red); text-shadow: 0 0 10px var(--red); }
+
+/* ── Targeting Gallery ── */
+.hud-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.hud-photo-card {
+  background: var(--surface);
+  padding: 12px;
+  position: relative;
+  cursor: crosshair;
+  transition: all 0.3s ease;
+}
+
+/* 4 external targeting brackets */
+.bracket { position: absolute; width: 12px; height: 12px; border: 1px solid var(--border2); transition: all 0.3s; }
+.bracket.tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.bracket.tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.bracket.bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.bracket.br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+.hud-photo-card:hover .bracket { border-color: var(--ice2); width: 20px; height: 20px; }
+.hud-photo-card:hover { background: var(--surface2); box-shadow: 0 0 30px rgba(14, 165, 233, 0.1); }
+
+.img-wrapper {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--border2);
+}
+
+.hud-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Deep space scanning filter by default */
+  filter: grayscale(80%) sepia(50%) hue-rotate(170deg) brightness(0.6);
+  transition: all 0.4s;
+}
+
+.hud-photo-card:hover .hud-photo-img {
+  /* Snaps to full color HD on hover */
+  filter: grayscale(0%) sepia(0%) brightness(1.1) contrast(1.1);
+  transform: scale(1.05);
+}
+
+/* Hover crosshair overlay */
+.hud-target-overlay {
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; justify-content: center; align-items: center;
+}
+.hud-photo-card:hover .hud-target-overlay { opacity: 1; }
+
+.crosshair-h { position: absolute; width: 100%; height: 1px; background: rgba(56, 189, 248, 0.4); }
+.crosshair-v { position: absolute; height: 100%; width: 1px; background: rgba(56, 189, 248, 0.4); }
+.target-circle { width: 40px; height: 40px; border: 1px dashed var(--ice2); border-radius: 50%; animation: spin 4s linear infinite; }
+
+.hud-photo-data {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--white3);
+  letter-spacing: 0.15em;
+}
+.hud-photo-card:hover .hud-photo-data { color: var(--ice); }
+
+/* ── Cyberpunk Analysis Modal (Lightbox) ── */
+.analysis-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 4, 4, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.analysis-modal {
+  width: 100%;
+  max-width: 1000px;
+  background: var(--surface);
+  border: 1px solid var(--ice3);
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 0 50px rgba(14, 165, 233, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border2);
+  padding-bottom: 16px;
+}
+
+.modal-title {
+  font-family: var(--display);
+  font-size: 24px;
+  color: var(--ice);
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.blink-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; animation: blink 1s step-end infinite; }
+
+.modal-close {
+  background: transparent;
+  color: var(--white3);
+  border: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  cursor: crosshair;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--red); }
+
+.modal-viewport {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  background: #000;
+  border: 1px solid var(--border2);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: contrast(1.1) brightness(1.1);
+  z-index: 2;
+}
+
+.viewport-scanline {
+  position: absolute; left: 0; right: 0; height: 4px;
+  background: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 20px var(--ice2);
+  z-index: 5; pointer-events: none;
+  animation: formScan 3s linear infinite;
+}
+
+.viewport-hud-overlay {
+  position: absolute; inset: 24px; z-index: 4; pointer-events: none;
+}
+.vh-corner { position: absolute; width: 40px; height: 40px; border: 2px solid rgba(255,255,255,0.2); }
+.vh-corner.tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.vh-corner.br { bottom: 0; right: 0; border-left: none; border-top: none; }
+.center-reticle {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100px; height: 100px; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 50%;
+}
+.center-reticle::after {
+  content: '+'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  color: rgba(56, 189, 248, 0.5); font-size: 24px;
+}
+
+.modal-footer {
+  margin-top: 24px;
+  display: flex;
+  gap: 32px;
+  border-top: 1px solid var(--border2);
+  padding-top: 16px;
+}
+.footer-stat { font-size: 10px; color: var(--ice); letter-spacing: 0.15em; }
+.footer-stat span { color: var(--white3); }
+
+@media (max-width: 900px) {
+  .hud-control-deck { flex-direction: column; align-items: flex-start; }
+  .hud-telemetry { flex-direction: column; gap: 16px; }
+  .modal-footer { flex-direction: column; gap: 12px; }
+}
